@@ -2,12 +2,13 @@ package com.example.mycatapp.domain
 
 import com.example.mycatapp.data.model.CatDetails
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
-class CatDetailsUseCase {
+class CatDetailsUseCase(
+    private val repository: CateDetailsRepository
+) {
 
-    fun getCatDetailsList(): Flow<Result<CatDetails>> {
-        return flow { }
+    suspend fun getCatList(): Flow<Result<CatDetails>> {
+        return repository.getCatList()
     }
 
 }

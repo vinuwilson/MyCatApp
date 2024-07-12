@@ -9,8 +9,8 @@ class MyCatViewModel(
     private val useCase: CatDetailsUseCase
 ) : ViewModel() {
 
-    fun getCatDetailsList(): Flow<Result<CatDetails>> {
-        return useCase.getCatDetailsList()
+    suspend fun getCatList(): Flow<Result<CatDetails>> {
+        return useCase.getCatList()
     }
 
 }

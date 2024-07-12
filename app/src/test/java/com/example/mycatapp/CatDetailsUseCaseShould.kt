@@ -2,43 +2,42 @@ package com.example.mycatapp
 
 import com.example.mycatapp.data.model.CatDetails
 import com.example.mycatapp.domain.CatDetailsUseCase
-import com.example.mycatapp.presenter.MyCatViewModel
+import com.example.mycatapp.domain.CateDetailsRepository
 import com.example.mycatapp.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-import org.junit.Assert.*
+class CatDetailsUseCaseShould : BaseUnitTest() {
 
-class MyCatViewModelShould : BaseUnitTest() {
-
-    private lateinit var viewModel: MyCatViewModel
-    private val catDetailsUseCase: CatDetailsUseCase = mock()
+    private lateinit var useCase: CatDetailsUseCase
+    private val repository : CateDetailsRepository = mock()
     private val catDetails: CatDetails = mock()
     private val expected = Result.success(catDetails)
     private val exception = RuntimeException("Something went wrong")
 
     @Test
-    fun fetchCatListFromUseCase() = runTest {
+    fun fetchCatListFromRepository() = runTest {
 
-        mockSuccessFulCase()
+        mockSuccessfulCase()
 
-        viewModel.getCatList()
+        useCase.getCatList()
 
-        verify(catDetailsUseCase, times(1)).getCatList()
+        verify(repository, times(1)).getCatList()
     }
 
     @Test
-    fun emitCatListFromUseCase() = runTest {
+    fun emitCatListFromRepository() = runTest {
 
-        mockSuccessFulCase()
+        mockSuccessfulCase()
 
-        assertEquals(expected, viewModel.getCatList().first())
+        assertEquals(expected, useCase.getCatList().first())
     }
 
     @Test
@@ -46,24 +45,26 @@ class MyCatViewModelShould : BaseUnitTest() {
 
         mockFailureCase()
 
-        assertEquals(exception, viewModel.getCatList().first().exceptionOrNull())
+        assertEquals(exception, useCase.getCatList().first().exceptionOrNull())
     }
 
-    private suspend fun mockSuccessFulCase() {
-        whenever(catDetailsUseCase.getCatList()).thenReturn(
+    private suspend fun mockSuccessfulCase() {
+        whenever(repository.getCatList()).thenReturn(
             flow {
                 emit(expected)
             }
         )
-        viewModel = MyCatViewModel(catDetailsUseCase)
+
+        useCase = CatDetailsUseCase(repository)
     }
 
     private suspend fun mockFailureCase() {
-        whenever(catDetailsUseCase.getCatList()).thenReturn(
+        whenever(repository.getCatList()).thenReturn(
             flow {
                 emit(Result.failure(exception))
             }
         )
-        viewModel = MyCatViewModel(catDetailsUseCase)
+
+        useCase = CatDetailsUseCase(repository)
     }
 }
