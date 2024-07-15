@@ -3,7 +3,6 @@ package com.example.mycatapp.data.model
 import com.google.gson.annotations.SerializedName
 
 data class Breed(
-    @SerializedName("alt_names") val alternativeNames: String,
     @SerializedName("country_code") val countryCode: String,
     val description: String,
     @SerializedName("id") val breedId: String,

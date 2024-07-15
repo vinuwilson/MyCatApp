@@ -18,7 +18,7 @@ class CatDetailsUseCaseShould : BaseUnitTest() {
 
     private lateinit var useCase: CatDetailsUseCase
     private val repository : CateDetailsRepository = mock()
-    private val catDetails: CatDetails = mock()
+    private val catDetails: List<CatDetails> = mock()
     private val expected = Result.success(catDetails)
     private val exception = RuntimeException("Something went wrong")
 

@@ -1,7 +1,7 @@
 package com.example.mycatapp
 
-import com.example.mycatapp.data.CatListAPI
-import com.example.mycatapp.data.CatListService
+import com.example.mycatapp.data.api.CatListAPI
+import com.example.mycatapp.data.api.CatListService
 import com.example.mycatapp.data.model.CatDetails
 import com.example.mycatapp.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
@@ -17,7 +17,7 @@ class CatListServiceShould : BaseUnitTest() {
 
     private lateinit var service: CatListService
     private val api: CatListAPI = mock()
-    private val catDetails: CatDetails = mock()
+    private val catDetails: List<CatDetails> = mock()
     private val expected = Result.success(catDetails)
     private val exception = RuntimeException("Something went wrong")
 

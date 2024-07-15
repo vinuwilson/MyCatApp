@@ -19,7 +19,7 @@ class MyCatViewModelShould : BaseUnitTest() {
 
     private lateinit var viewModel: MyCatViewModel
     private val catDetailsUseCase: CatDetailsUseCase = mock()
-    private val catDetails: CatDetails = mock()
+    private val catDetails: List<CatDetails> = mock()
     private val expected = Result.success(catDetails)
     private val exception = RuntimeException("Something went wrong")
 

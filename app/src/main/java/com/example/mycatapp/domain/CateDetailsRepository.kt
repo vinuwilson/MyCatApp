@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CateDetailsRepository {
 
-    suspend fun getCatList() : Flow<Result<CatDetails>>
+    suspend fun getCatList() : Flow<Result<List<CatDetails>>>
 }
