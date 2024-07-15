@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_rounded_shape">8.dp</dimen>
+    <dimen name="card_view_card_elevation">1.dp</dimen>
+    <dimen name="card_view_padding">16.dp</dimen>
+    <dimen name="default_app_padding">8.dp</dimen>
+    <dimen name="spacer_height">10.dp</dimen>
+    <dimen name="spacer_width">5.dp</dimen>
+</resources>

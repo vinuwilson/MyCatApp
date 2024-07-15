@@ -1,6 +1,7 @@
 package com.example.mycatapp.presenter
 
 import com.example.mycatapp.data.model.CatDetails
+import com.example.mycatapp.data.model.Weight
 
 data class CatViewModelState(
     val catDetails: List<CatDetails>? = emptyList(),
@@ -18,7 +19,8 @@ data class CatViewModelState(
                     temperament = result.listOfBreeds.first().temperament,
                     origin = result.listOfBreeds.first().origin,
                     lifeSpan = result.listOfBreeds.first().lifeSpan,
-                    breedId = result.listOfBreeds.first().breedId
+                    breedId = result.listOfBreeds.first().breedId,
+                    weight = result.listOfBreeds.first().weight.weightInPounds
                 )
             },
             loading = loading
@@ -40,5 +42,7 @@ data class ResultUiState(
     val temperament: String,
     val origin: String,
     val lifeSpan: String,
-    val breedId: String
+    val breedId: String,
+    val weight: String,
+
 )

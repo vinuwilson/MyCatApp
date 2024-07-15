@@ -1,5 +1,6 @@
 package com.example.mycatapp.presenter
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,12 +18,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.mycatapp.R
 
 @Composable
-fun CatListView(catUiState: CatUiState) {
+fun CatListView(
+    catUiState: CatUiState,
+    onCatDetailsSelected: (String) -> Unit
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (catUiState.loading) {
             CircularProgressIndicator(
@@ -31,7 +37,7 @@ fun CatListView(catUiState: CatUiState) {
         } else {
             LazyColumn {
                 items(catUiState.catDetails) { catDetails ->
-                    CatItemView(catDetails)
+                    CatItemView(catDetails, onCatDetailsSelected)
                 }
             }
         }
@@ -39,28 +45,31 @@ fun CatListView(catUiState: CatUiState) {
 }
 
 @Composable
-fun CatItemView(catDetails: ResultUiState) {
+fun CatItemView(catDetails: ResultUiState, onCatDetailsSelected: (String) -> Unit) {
     Card(
-        shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.elevatedCardElevation(1.dp),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.card_view_rounded_shape)),
+        elevation = CardDefaults.elevatedCardElevation(dimensionResource(id = R.dimen.card_view_card_elevation)),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(dimensionResource(id = R.dimen.card_view_padding))
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(catDetails.catImageUrl)
                 .crossfade(true)
                 .build(),
-            contentDescription = "",
+            contentDescription = stringResource(R.string.cat_image),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(4.dp)
+                .padding(dimensionResource(id = R.dimen.default_app_padding))
+                .clickable {
+                    onCatDetailsSelected(catDetails.catId)
+                }
         )
         Row {
             Text(
                 modifier = Modifier
-                    .padding(8.dp),
+                    .padding(dimensionResource(id = R.dimen.default_app_padding)),
                 text = catDetails.name,
                 style = MaterialTheme.typography.headlineSmall
             )
