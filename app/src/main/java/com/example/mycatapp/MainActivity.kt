@@ -81,7 +81,8 @@ fun MyCatAppNav() {
                 state.toUiState()?.let { details ->
                     CatDetailsView(
                         args.catId,
-                        details.catDetails
+                        details.catDetails,
+                        navController
                     )
                 }
             }

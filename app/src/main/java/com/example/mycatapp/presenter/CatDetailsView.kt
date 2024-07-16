@@ -11,7 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,27 +24,45 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mycatapp.R
-import com.example.mycatapp.ui.theme.MyCatAppTheme
 
 @Composable
-fun CatDetailsView(catId: String, catDetails: List<ResultUiState>) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.default_app_padding))
+fun CatDetailsView(
+    catId: String,
+    catDetails: List<ResultUiState>,
+    navController: NavHostController?
+) {
+    Scaffold(topBar = {
+        AppBar(
+            title = stringResource(id = R.string.cat_details_name),
+            icon = Icons.AutoMirrored.Filled.ArrowBack
         ) {
-            catDetails.map { details ->
-                if (catId == details.catId) {
-                    Column(
-                        modifier = Modifier
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        CatDetailsSection(details)
+            navController?.navigateUp()
+        }
+    }) { innerPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(dimensionResource(id = R.dimen.default_app_padding))
+                ) {
+                    catDetails.map { details ->
+                        if (catId == details.catId) {
+                            Column(
+                                modifier = Modifier
+                                    .verticalScroll(rememberScrollState())
+                            ) {
+                                CatDetailsSection(details)
+                            }
+                        }
                     }
                 }
             }
@@ -58,7 +80,6 @@ fun CatDetailsSection(details: ResultUiState) {
         contentDescription = stringResource(R.string.cat_image),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(dimensionResource(id = R.dimen.default_app_padding))
     )
 
     Text(
@@ -99,9 +120,10 @@ fun RowTextFields(title: String, textValue: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun CatDetailsSectionPreview() {
-    MyCatAppTheme {
-        CatDetailsSection(
+fun CatDetailsViewPreview() {
+    CatDetailsView(
+        catId = "123",
+        listOf(
             ResultUiState(
                 catId = "123",
                 catImageUrl = "http://cfa.org/Breeds/BreedsAB/Birman.aspx",
@@ -114,6 +136,7 @@ fun CatDetailsSectionPreview() {
                 breedId = "",
                 weight = "10-15"
             )
-        )
-    }
+        ),
+        navController = null
+    )
 }

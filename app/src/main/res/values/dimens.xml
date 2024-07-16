@@ -6,4 +6,5 @@
     <dimen name="default_app_padding">8.dp</dimen>
     <dimen name="spacer_height">10.dp</dimen>
     <dimen name="spacer_width">5.dp</dimen>
+    <dimen name="top_bar_horizontal_padding">12.dp</dimen>
 </resources>
