@@ -1,8 +1,10 @@
-# Description
+# My Cat App
+
+## Description
 
 This native Android mobile app utilizes The Cat API to showcase various breeds of cats, along with their details. The app features a list of different cat breeds, each accompanied by an image and additional information. Upon selecting a specific cat from the list, users are redirected to a separate page where they can explore further details about the selected cat breed. The project follows SOLID principles and clean code architecture design principles.
 
-# Detailed Project Description
+## Detailed Project Description
 
 ## 1. Technology Used:
 
@@ -35,11 +37,12 @@ This native Android mobile app utilizes The Cat API to showcase various breeds o
 ## Further enhancements
 
 * Display the initial list of cat breeds with an indication of which breeds are already favorited.
+* Separate different features into distinct modules. This approach improves maintainability, scalability, and reusability.
 * Remove a breed from the favorite list.
 * Support offline favorited cat view.
 * Furthermore cosmetics and refactoring is an endless thought.
 
-# Snapshots
+## Snapshots
 
 ![Screenshot_1](https://github.com/user-attachments/assets/05af0207-f688-4cb7-8572-59df74a7f6c8)
 
