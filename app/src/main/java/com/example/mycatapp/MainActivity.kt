@@ -22,9 +22,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import com.example.mycatapp.presenter.CatDetailsView
-import com.example.mycatapp.presenter.CatListView
-import com.example.mycatapp.presenter.MyCatViewModel
+import com.example.mycatapp.catinfo.presenter.CatDetailsView
+import com.example.mycatapp.catinfo.presenter.CatListView
+import com.example.mycatapp.catinfo.presenter.MyCatViewModel
+import com.example.mycatapp.favorite.getfavorite.presenter.FavoriteList
 import com.example.mycatapp.ui.theme.MyCatAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
@@ -63,7 +64,9 @@ fun MyCatAppNav() {
                     }
                 }
                 state.toUiState()?.let {
-                    CatListView(it) { catId ->
+                    CatListView(catUiState = it, showFavoriteSelected = {
+                        navController.navigate(FavoriteListScreen)
+                    }) { catId ->
                         navController.navigate(
                             CatDetailsScreen(
                                 catId = catId
@@ -83,6 +86,15 @@ fun MyCatAppNav() {
                         args.catId,
                         details.catDetails,
                         navController
+                    )
+                }
+            }
+            composable<FavoriteListScreen> {
+                FavoriteList(navController) { favSelectedId ->
+                    navController.navigate(
+                        CatDetailsScreen(
+                            catId = favSelectedId
+                        )
                     )
                 }
             }
@@ -111,6 +123,9 @@ data class CatDetailsScreen(
 
 @Serializable
 object CatInformation
+
+@Serializable
+object FavoriteListScreen
 
 @Preview(showBackground = true)
 @Composable

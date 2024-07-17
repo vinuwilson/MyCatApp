@@ -1,8 +1,8 @@
 package com.example.mycatapp
 
-import com.example.mycatapp.data.api.CatListService
-import com.example.mycatapp.data.api.CateDetailsRepositoryImp
-import com.example.mycatapp.data.model.CatDetails
+import com.example.mycatapp.catinfo.data.api.CatListService
+import com.example.mycatapp.catinfo.data.api.CateDetailsRepositoryImp
+import com.example.mycatapp.catinfo.data.model.CatDetails
 import com.example.mycatapp.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times

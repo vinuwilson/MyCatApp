@@ -87,6 +87,9 @@ dependencies {
     //Image loading
     implementation(libs.coil.compose)
 
+    //Preference
+    implementation (libs.androidx.datastore.preferences)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.mockito.inline)
