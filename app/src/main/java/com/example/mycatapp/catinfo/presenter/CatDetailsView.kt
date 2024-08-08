@@ -1,7 +1,5 @@
 package com.example.mycatapp.catinfo.presenter
 
-import android.widget.Toast
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +17,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
@@ -34,8 +31,7 @@ import com.example.mycatapp.utils.AppBar
 
 @Composable
 fun CatDetailsView(
-    catId: String,
-    catDetails: List<ResultUiState>,
+    catDetails: ResultUiState,
     navController: NavHostController?
 ) {
     Scaffold(topBar = {
@@ -51,33 +47,12 @@ fun CatDetailsView(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(dimensionResource(id = R.dimen.default_app_padding))
-                ) {
-                    catDetails.map { details ->
-                        if (catId == details.catId) {
-                            Column(
-                                modifier = Modifier
-                                    .verticalScroll(rememberScrollState())
-                            ) {
-                                CatDetailsSection(details)
-                            }
-                        }
-                    }
-                    if(catDetails.filter { it.catId == catId }.size != 1) {
-                        val context = LocalContext.current
-                        LaunchedEffect(Unit) {
-                            Toast.makeText(
-                                context,
-                                "Cat details not found!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
+            Column(
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.default_app_padding))
+                    .verticalScroll(rememberScrollState())
+            ) {
+                CatDetailsSection(catDetails)
             }
         }
     }
@@ -88,6 +63,7 @@ fun CatDetailsSection(details: ResultUiState) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(details.catImageUrl)
+            .placeholder(R.drawable.ic_launcher_foreground)
             .crossfade(true)
             .build(),
         contentDescription = stringResource(R.string.cat_image),
@@ -135,20 +111,20 @@ fun RowTextFields(title: String, textValue: String) {
 @Composable
 fun CatDetailsViewPreview() {
     CatDetailsView(
-        catId = "123",
-        listOf(
-            ResultUiState(
-                catId = "123",
-                catImageUrl = "http://cfa.org/Breeds/BreedsAB/Birman.aspx",
-                name = "Birman",
-                countryCode = "Fr",
-                description = "The Birman is a docile, quiet cat who loves people and will follow them from room to room. Expect the Birman to want to be involved in what you’re doing. He communicates in a soft voice, mainly to remind you that perhaps it’s time for dinner or maybe for a nice cuddle on the sofa. He enjoys being held and will relax in your arms like a furry baby.",
-                temperament = "Affectionate, Active, Gentle, Social",
-                origin = "France",
-                lifeSpan = "",
-                breedId = "",
-                weight = "10-15"
-            )
+//        catId = "123",
+//        listOf(
+        ResultUiState(
+            catId = "123",
+            catImageUrl = "http://cfa.org/Breeds/BreedsAB/Birman.aspx",
+            name = "Birman",
+            countryCode = "Fr",
+            description = "The Birman is a docile, quiet cat who loves people and will follow them from room to room. Expect the Birman to want to be involved in what you’re doing. He communicates in a soft voice, mainly to remind you that perhaps it’s time for dinner or maybe for a nice cuddle on the sofa. He enjoys being held and will relax in your arms like a furry baby.",
+            temperament = "Affectionate, Active, Gentle, Social",
+            origin = "France",
+            lifeSpan = "",
+            breedId = "",
+            weight = "10-15"
+//            )
         ),
         navController = null
     )
